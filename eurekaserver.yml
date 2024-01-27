@@ -1,0 +1,15 @@
+server:
+  port: 8070
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # eureka never will call microservices, therefore we dont need to fetch the registry
+    fetchRegistry: false
+    # this is the eureka service, registrating itself inside eureka will expose the details 
+    registerWithEureka: false
+    serviceUrl:
+      # this is the address where microsevices can register itself.
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    

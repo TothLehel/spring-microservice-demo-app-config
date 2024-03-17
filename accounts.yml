@@ -4,10 +4,20 @@ server:
 spring:
   application:
     name: accounts
-  # as default behavior activate this profile
-  profiles:
-    active: prod
 
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   #spring.datasource.url: jdbc:h2:mem:testdb
   #spring.datasource.username: sa
   #spring.datasource.password:
@@ -16,18 +26,22 @@ spring:
   #spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
   #spring.jpa.hibernate.ddl-auto: update
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/accountsdb
-    username: root
-    password: root
+  #datasource:
+  #  url: jdbc:mysql://localhost:3306/accountsdb
+  #  username: root
+  #  password: root
 
-  jpa:
-    show-sql: true
+  #jpa:
+  #  show-sql: true
     # always run schema.sql on startup
-  sql:
-    init:
-      mode: always
+  #sql:
+  #  init:
+  #    mode: always
 
+  # location of configserver, configserver: is an indication that we need to connect to it and use it as a config
+  # optional: if configserver is not available, then start the microservice anyway
+  config:
+    import: optional:configserver:http://localhost:8071/
   rabbitmq:
     host: localhost
     port: 5672
@@ -37,13 +51,16 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
+    activate:
+      on-profile: "local"
 
   # -------- use when configuration happens inside the application ---------
   # config.import: application_qa.yml,application_prod.yml
   # profiles.active: qa
 
   # -------- configured in config server now ---------
-  # build.version: 3.0
+build:
+  version: 3.0
 
   # accounts.message: Welcome to the demo bank account microservice application!
   # accounts.contactDetails.name: John Doe

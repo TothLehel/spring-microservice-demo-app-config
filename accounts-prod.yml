@@ -30,10 +30,6 @@ spring:
     init:
       mode: always
 
-  # location of configserver, configserver: is an indication that we need to connect to it and use it as a config
-  # optional: if configserver is not available, then start the microservice anyway
-  config:
-    import: optional:configserver:http://localhost:8071/
   rabbitmq:
     host: localhost
     port: 5672

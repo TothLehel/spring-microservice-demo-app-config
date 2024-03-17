@@ -47,8 +47,6 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
-    activate:
-      on-profile: "local"
 
   # -------- use when configuration happens inside the application ---------
   # config.import: application_qa.yml,application_prod.yml

@@ -5,5 +5,5 @@ spring:
     name: cards
   profiles:
     active: local
-  config:
-    import: optional:configserver:http://localhost:8071/
+  #config:
+  #  import: optional:configserver:http://localhost:8071/
